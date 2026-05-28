@@ -1,6 +1,9 @@
+
+```yaml
 name: Flight Monitor
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 7 * * *'
 
@@ -27,3 +30,4 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python flight_tracker.py
+```
