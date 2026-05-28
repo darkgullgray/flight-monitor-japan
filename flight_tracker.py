@@ -3,9 +3,9 @@ import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
 
-FROM_EMAIL = "TUA_MAIL@gmail.com"
-APP_PASSWORD = "PASSWORD_APP_GMAIL"
-TO_EMAIL = "TUA_MAIL@gmail.com"
+FROM_EMAIL = "ettciu@gmail.com"
+APP_PASSWORD = "qrrn gpba imjt skgb"
+TO_EMAIL = "ettciu@gmail.com"
 
 URL = "https://www.google.com/travel/flights"
 
