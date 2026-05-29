@@ -2,70 +2,63 @@ from playwright.sync_api import sync_playwright
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
-import csv
 
 FROM_EMAIL = "ettciu@gmail.com"
 APP_PASSWORD = "qrrn gpba imjt skgb"
 TO_EMAIL = "ettciu@gmail.com"
 
-URL = "https://www.google.com/travel/flights"
-
-
 def get_flight_price():
     test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
 
-    page.goto(test_url, wait_until="networkidle")
-    page.wait_for_timeout(10000)
+        page.goto(test_url, wait_until="networkidle")
+        page.wait_for_timeout(10000)
 
-    testo = page.locator("body").inner_text()
+        testo = page.locator("body").inner_text()
 
-    browser.close()
+        browser.close()
 
-prezzo = "Non trovato"
-valutazione = "Non trovata"
+        prezzo = "Non trovato"
+        valutazione = "Non trovata"
 
-righe = testo.split("\n")
+        righe = testo.split("\n")
 
-for i, riga in enumerate(righe):
-    if "da " in riga and "€" in riga:
-        prezzo = riga.strip()
-        break
+        for riga in righe:
+            if "da " in riga and "€" in riga:
+             prezzo = riga.strip()
+            break
 
-for riga in righe:
-    if "Al momento, i prezzi" in riga:
-        valutazione = riga.strip()
-        break
+        for riga in righe:
+            if "Al momento, i prezzi" in riga:
+             valutazione = riga.strip()
+            break
 
-report = f"""
+            report = f"""
 
-ROMA → OSAKA
+            ROMA → OSAKA
 
-Prezzo minimo:
-{prezzo}
+            Prezzo minimo:
+            {prezzo}
 
-Valutazione Google:
-{valutazione}
+            Valutazione Google:
+            {valutazione}
+            """
 
-
-        return report
-
-
-
+            return report
 
 price = get_flight_price()
 
 message = f"""
-
+Monitor voli Giappone
 
 Data: {datetime.now()}
 
-
+Risultato:
 {price}
-
+"""
 
 msg = MIMEText(message)
 msg["Subject"] = "Report voli Giappone"
