@@ -35,7 +35,7 @@ def get_flight_price():
     with open("prices.csv", "r", encoding="utf-8") as f:
         contenuto = f.read()
 
-return contenuto
+    return contenuto
 
 
 price = get_flight_price()
