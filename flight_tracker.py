@@ -23,7 +23,22 @@ def get_flight_price():
 
         browser.close()
 
-        return "Prezzo trovato manualmente"
+       import csv
+from datetime import datetime
+
+today = datetime.now().strftime("%Y-%m-%d")
+
+with open("prices.csv", "a", newline="", encoding="utf-8") as f:
+writer = csv.writer(f)
+writer.writerow([
+today,
+"ROMA-OSAKA",
+1800,
+"TEST AIRLINE"
+])
+
+return "Storico aggiornato correttamente"
+
 
 
 price = get_flight_price()
