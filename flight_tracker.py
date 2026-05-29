@@ -12,46 +12,46 @@ URL = "https://www.google.com/travel/flights"
 
 
 def get_flight_price():
-    test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
+test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
 
-        page.goto(test_url, wait_until="networkidle")
-        page.wait_for_timeout(10000)
+    page.goto(test_url, wait_until="networkidle")
+    page.wait_for_timeout(10000)
 
-        testo = page.locator("body").inner_text()
+    testo = page.locator("body").inner_text()
 
-        browser.close()
-        
-        prezzo = "Non trovato"
-        valutazione = "Non trovata"
+    browser.close()
 
-        righe = testo.split("\n")
+    prezzo = "Non trovato"
+    valutazione = "Non trovata"
 
-for i, riga in enumerate(righe):
+    righe = testo.split("\n")
+
+    for i, riga in enumerate(righe):
     if "da " in riga and "€" in riga:
         prezzo = riga.strip()
         break
 
-for riga in righe:
+    for riga in righe:
     if "Al momento, i prezzi" in riga:
         valutazione = riga.strip()
         break
 
-        report = f"""
+report = f"""
 
-        ROMA → OSAKA
+ROMA → OSAKA
 
-        Prezzo minimo:
-        {prezzo}
+Prezzo minimo:
+{prezzo}
 
-        Valutazione Google:
-        {valutazione}
-        """
+Valutazione Google:
+{valutazione}
+"""
+
         return report
-
 
 
 
