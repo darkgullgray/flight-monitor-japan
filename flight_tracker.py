@@ -25,8 +25,33 @@ def get_flight_price():
 
         browser.close()
 
-        return testo[:5000]
+       prezzo = "Non trovato"
+       valutazione = "Non trovata"
 
+       righe = testo.split("\n")
+
+for i, riga in enumerate(righe):
+    if "da " in riga and "€" in riga:
+        prezzo = riga.strip()
+        break
+
+for riga in righe:
+    if "Al momento, i prezzi" in riga:
+        valutazione = riga.strip()
+        break
+
+report = f"""
+
+ROMA → OSAKA
+
+Prezzo minimo:
+{prezzo}
+
+Valutazione Google:
+{valutazione}
+"""
+
+return report
 
 
 
