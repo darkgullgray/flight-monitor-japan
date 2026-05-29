@@ -28,26 +28,26 @@ def get_flight_price():
 
         for riga in righe:
             if "da " in riga and "€" in riga:
-             prezzo = riga.strip()
-            break
+                prezzo = riga.strip()
+                break
 
         for riga in righe:
             if "Al momento, i prezzi" in riga:
-             valutazione = riga.strip()
-            break
+                valutazione = riga.strip()
+                break
 
-            report = f"""
+        report = f"""
 
-            ROMA → OSAKA
+        ROMA → OSAKA
 
-            Prezzo minimo:
-            {prezzo}
+        Prezzo minimo:
+        {prezzo}
 
-            Valutazione Google:
-            {valutazione}
-            """
+        Valutazione Google:
+        {valutazione}
+        """
 
-            return report
+        return report
 
 price = get_flight_price()
 
