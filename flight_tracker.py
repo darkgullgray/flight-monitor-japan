@@ -50,7 +50,7 @@ for riga in righe:
         Valutazione Google:
         {valutazione}
         """
-            return testo[:5000]
+        return testo[:5000]
 
 
 
