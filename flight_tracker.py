@@ -32,7 +32,10 @@ def get_flight_price():
             "TEST AIRLINE"
         ])
 
-    return "Storico aggiornato correttamente"
+    with open("prices.csv", "r", encoding="utf-8") as f:
+    contenuto = f.read()
+
+return contenuto
 
 
 price = get_flight_price()
