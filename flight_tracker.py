@@ -57,8 +57,6 @@ price = get_flight_price()
 
 message = f"""
 
-Monitor voli Giappone
-
 Data: {datetime.now()}
 
 Risultato:
