@@ -12,14 +12,20 @@ URL = "https://www.google.com/travel/flights"
 
 
 def get_flight_price():
+test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
 
-        page.goto(URL)
-        page.wait_for_timeout(5000)
+    page.goto(test_url, wait_until="networkidle")
+    page.wait_for_timeout(10000)
 
-        browser.close()
+    testo = page.locator("body").inner_text()
+
+    browser.close()
+
+return testo[:5000]
 
     today = datetime.now().strftime("%Y-%m-%d")
 
