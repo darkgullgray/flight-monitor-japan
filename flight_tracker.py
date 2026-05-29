@@ -1,7 +1,9 @@
+```python
 from playwright.sync_api import sync_playwright
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
+import csv
 
 FROM_EMAIL = "ettciu@gmail.com"
 APP_PASSWORD = "qrrn gpba imjt skgb"
@@ -16,29 +18,22 @@ def get_flight_price():
         page = browser.new_page()
 
         page.goto(URL)
-
-        page.wait_for_timeout(10000)
-
-        content = page.content()
+        page.wait_for_timeout(5000)
 
         browser.close()
 
-        import csv
-from datetime import datetime
+    today = datetime.now().strftime("%Y-%m-%d")
 
-today = datetime.now().strftime("%Y-%m-%d")
+    with open("prices.csv", "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            today,
+            "ROMA-OSAKA",
+            1800,
+            "TEST AIRLINE"
+        ])
 
-with open("prices.csv", "a", newline="", encoding="utf-8") as f:
-writer = csv.writer(f)
-writer.writerow([
-today,
-"ROMA-OSAKA",
-1800,
-"TEST AIRLINE"
-])
-
-return "Storico aggiornato correttamente"
-
+    return "Storico aggiornato correttamente"
 
 
 price = get_flight_price()
@@ -64,3 +59,4 @@ server.send_message(msg)
 server.quit()
 
 print("Email inviata")
+```
