@@ -51,7 +51,7 @@ Valutazione Google:
 {valutazione}
 """
 
-return report
+    return report
 
 
 
