@@ -31,7 +31,7 @@ def get_flight_price():
         righe = testo.split("\n")
 
     for i, riga in enumerate(righe):
-    if "da " in riga and "€" in riga:
+        if "da " in riga and "€" in riga:
         prezzo = riga.strip()
         break
 
