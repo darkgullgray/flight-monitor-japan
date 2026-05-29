@@ -63,7 +63,7 @@ Data: {datetime.now()}
 
 Risultato:
 {price}
-"""
+
 
 msg = MIMEText(message)
 msg["Subject"] = "Report voli Giappone"
