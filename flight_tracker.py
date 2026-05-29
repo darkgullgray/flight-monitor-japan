@@ -50,7 +50,6 @@ Prezzo minimo:
 Valutazione Google:
 {valutazione}
 """
- return report
 
 
 
