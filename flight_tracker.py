@@ -23,7 +23,7 @@ def get_flight_price():
 
         browser.close()
 
-       import csv
+        import csv
 from datetime import datetime
 
 today = datetime.now().strftime("%Y-%m-%d")
