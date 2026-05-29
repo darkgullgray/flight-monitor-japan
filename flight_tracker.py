@@ -25,10 +25,10 @@ def get_flight_price():
 
         browser.close()
 
-       prezzo = "Non trovato"
-       valutazione = "Non trovata"
+        prezzo = "Non trovato"
+        valutazione = "Non trovata"
 
-       righe = testo.split("\n")
+        righe = testo.split("\n")
 
 for i, riga in enumerate(righe):
     if "da " in riga and "€" in riga:
