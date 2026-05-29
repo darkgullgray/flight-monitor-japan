@@ -1,4 +1,3 @@
-```python
 from playwright.sync_api import sync_playwright
 import smtplib
 from email.mime.text import MIMEText
@@ -59,4 +58,3 @@ server.send_message(msg)
 server.quit()
 
 print("Email inviata")
-```
