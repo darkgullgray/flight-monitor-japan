@@ -27,7 +27,7 @@ def get_flight_price():
 
 return testo[:5000]
 
-    today = datetime.now().strftime("%Y-%m-%d")
+today = datetime.now().strftime("%Y-%m-%d")
 
     with open("prices.csv", "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
