@@ -31,12 +31,12 @@ def get_flight_price():
         righe = testo.split("\n")
 
     for i, riga in enumerate(righe):
-        if "da " in riga and "€" in riga:
+     if "da " in riga and "€" in riga:
         prezzo = riga.strip()
         break
 
     for riga in righe:
-    if "Al momento, i prezzi" in riga:
+     if "Al momento, i prezzi" in riga:
         valutazione = riga.strip()
         break
 
@@ -49,15 +49,14 @@ Prezzo minimo:
 
 Valutazione Google:
 {valutazione}
-"""
-
-        return report
+      return report
 
 
 
 price = get_flight_price()
 
 message = f"""
+
 Monitor voli Giappone
 
 Data: {datetime.now()}
