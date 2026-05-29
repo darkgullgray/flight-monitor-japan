@@ -25,23 +25,9 @@ def get_flight_price():
 
         browser.close()
 
-return testo[:5000]
+        return testo[:5000]
 
-    today = datetime.now().strftime("%Y-%m-%d")
 
-    with open("prices.csv", "a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow([
-            today,
-            "ROMA-OSAKA",
-            1800,
-            "TEST AIRLINE"
-        ])
-
-    with open("prices.csv", "r", encoding="utf-8") as f:
-        contenuto = f.read()
-
-    return contenuto
 
 
 price = get_flight_price()
