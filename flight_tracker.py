@@ -140,6 +140,15 @@ def get_flight_price():
         """
         return report
 
+def estrai_numero_prezzo(testo_prezzo):
+return int(
+testo_prezzo
+.replace("da", "")
+.replace("€", "")
+.replace(".", "")
+.strip()
+)
+
 price = get_flight_price()
 
 message = f"""
