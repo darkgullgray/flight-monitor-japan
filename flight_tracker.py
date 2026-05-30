@@ -10,6 +10,7 @@ TO_EMAIL = "ettciu@gmail.com"
 def get_flight_price():
     test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
     milano_osaka_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDTVhQcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNNWFBAAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
+    roma_tokyo_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDSE5EGh4SCjIwMjYtMTEtMTZqBwgBEgNITkRyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
@@ -24,6 +25,12 @@ def get_flight_price():
         page.wait_for_timeout(10000)
 
         testo_milano = page.locator("body").inner_text()
+        
+        page.goto(roma_tokyo_url, wait_until="networkidle")
+        page.wait_for_timeout(10000)
+
+        testo_tokyo = page.locator("body").inner_text()
+        
         browser.close()
 
         prezzo = "Non trovato"
@@ -55,6 +62,23 @@ def get_flight_price():
             if "Al momento, i prezzi" in riga:
                 valutazione_milano = riga.strip()
                 break
+            
+        prezzo_tokyo = "Non trovato"
+        valutazione_tokyo = "Non trovata"
+
+        righe_tokyo = testo_tokyo.split("\n")
+
+        for riga in righe_tokyo:
+            if "da " in riga and "€" in riga:
+                prezzo_tokyo = riga.strip()
+                break
+
+        for riga in righe_tokyo:
+            if "Al momento, i prezzi" in riga:
+                valutazione_tokyo = riga.strip()
+                break        
+                
+            
         
         report = f"""
 
@@ -73,8 +97,16 @@ def get_flight_price():
 
         Valutazione Google:
         {valutazione_milano}
-        """
+        
+        
+        ROMA → TOKYO
 
+        Prezzo minimo:
+        {prezzo_tokyo}
+
+        Valutazione Google:
+        {valutazione_tokyo}
+        """
         return report
 
 price = get_flight_price()
