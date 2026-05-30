@@ -21,8 +21,23 @@ jobs:
         run: |
           pip install playwright
           playwright install
-
+   
       - name: Run bot
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+        run: python flight_tracker.py
+
+      - name: Commit prices.csv
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add prices.csv
+          git commit -m "Update prices history" || echo "No changes"
+
+      - name: Push changes
+        run: git push
+
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
