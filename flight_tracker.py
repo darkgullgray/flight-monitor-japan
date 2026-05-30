@@ -2,12 +2,19 @@ from playwright.sync_api import sync_playwright
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
+import csv
 
-import os
-
-FROM_EMAIL = os.environ["EMAIL"]
-APP_PASSWORD = os.environ["PASSWORD"]
+FROM_EMAIL = "ettciu@gmail.com"
+APP_PASSWORD = "qrrn gpba imjt skgb"
 TO_EMAIL = "ettciu@gmail.com"
+
+def estrai_numero_prezzo(testo):
+    return int(
+    testo.replace("da", "")
+    .replace("€", "")
+    .replace(".", "")
+    .strip()
+    )
 
 def get_flight_price():
     
@@ -138,16 +145,41 @@ def get_flight_price():
         Valutazione Google:
         {valutazione_milano_tokyo}
         """
+        
+    oggi = datetime.now().strftime("%Y-%m-%d")
+
+    with open("prices.csv", "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+
+        writer.writerow([
+            oggi,
+            "ROMA-OSAKA",
+            estrai_numero_prezzo(prezzo)
+        ])
+
+        writer.writerow([
+            oggi,
+            "MILANO-OSAKA",
+            estrai_numero_prezzo(prezzo_milano)
+        ])
+
+        writer.writerow([
+            oggi,
+            "ROMA-TOKYO",
+            estrai_numero_prezzo(prezzo_tokyo)
+        ])
+
+        writer.writerow([
+            oggi,
+            "MILANO-TOKYO",
+            estrai_numero_prezzo(prezzo_milano_tokyo)
+        ])
         return report
 
-def estrai_numero_prezzo(testo_prezzo):
-return int(
-testo_prezzo
-.replace("da", "")
-.replace("€", "")
-.replace(".", "")
-.strip()
-)
+        
+        
+    
+    
 
 price = get_flight_price()
 
