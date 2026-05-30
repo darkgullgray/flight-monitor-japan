@@ -37,8 +37,3 @@ jobs:
 
       - name: Push changes
         run: git push
-
-        env:
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: python flight_tracker.py
