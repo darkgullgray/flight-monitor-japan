@@ -9,7 +9,7 @@ TO_EMAIL = "ettciu@gmail.com"
 
 def get_flight_price():
     test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
-
+    milano_osaka_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDTVhQcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNNWFBAAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
@@ -18,13 +18,18 @@ def get_flight_price():
         page.wait_for_timeout(10000)
 
         testo = page.locator("body").inner_text()
+        testo_roma = testo
 
+        page.goto(milano_osaka_url, wait_until="networkidle")
+        page.wait_for_timeout(10000)
+
+        testo_milano = page.locator("body").inner_text()
         browser.close()
 
         prezzo = "Non trovato"
         valutazione = "Non trovata"
 
-        righe = testo.split("\n")
+        righe = testo_roma.split("\n")
 
         for riga in righe:
             if "da " in riga and "€" in riga:
@@ -35,7 +40,22 @@ def get_flight_price():
             if "Al momento, i prezzi" in riga:
                 valutazione = riga.strip()
                 break
+            
+        prezzo_milano = "Non trovato"
+        valutazione_milano = "Non trovata"
 
+        righe_milano = testo_milano.split("\n")
+
+        for riga in righe_milano:
+            if "da " in riga and "€" in riga:
+                prezzo_milano = riga.strip()
+                break
+
+        for riga in righe_milano:
+            if "Al momento, i prezzi" in riga:
+                valutazione_milano = riga.strip()
+                break
+        
         report = f"""
 
         ROMA → OSAKA
@@ -45,6 +65,14 @@ def get_flight_price():
 
         Valutazione Google:
         {valutazione}
+        
+        MILANO → OSAKA
+
+        Prezzo minimo:
+        {prezzo_milano}
+
+        Valutazione Google:
+        {valutazione_milano}
         """
 
         return report
