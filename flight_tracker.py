@@ -3,8 +3,10 @@ import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime
 
-FROM_EMAIL = "ettciu@gmail.com"
-APP_PASSWORD = "qrrn gpba imjt skgb"
+import os
+
+FROM_EMAIL = os.environ["EMAIL"]
+APP_PASSWORD = os.environ["PASSWORD"]
 TO_EMAIL = "ettciu@gmail.com"
 
 def get_flight_price():
