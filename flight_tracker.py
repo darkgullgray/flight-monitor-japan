@@ -8,9 +8,12 @@ APP_PASSWORD = "qrrn gpba imjt skgb"
 TO_EMAIL = "ettciu@gmail.com"
 
 def get_flight_price():
+    
     test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
     milano_osaka_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDTVhQcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNNWFBAAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
     roma_tokyo_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDSE5EGh4SCjIwMjYtMTEtMTZqBwgBEgNITkRyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
+    milano_tokyo_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDTVhQcgcIARIDSE5EGh4SCjIwMjYtMTEtMTZqBwgBEgNITkRyBwgBEgNNWFBAAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
+    
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
@@ -30,6 +33,11 @@ def get_flight_price():
         page.wait_for_timeout(10000)
 
         testo_tokyo = page.locator("body").inner_text()
+        
+        page.goto(milano_tokyo_url, wait_until="networkidle")
+        page.wait_for_timeout(10000)
+
+        testo_milano_tokyo = page.locator("body").inner_text()
         
         browser.close()
 
@@ -78,7 +86,20 @@ def get_flight_price():
                 valutazione_tokyo = riga.strip()
                 break        
                 
-            
+        prezzo_milano_tokyo = "Non trovato"
+        valutazione_milano_tokyo = "Non trovata"
+
+        righe_milano_tokyo = testo_milano_tokyo.split("\n")
+
+        for riga in righe_milano_tokyo:
+            if "da " in riga and "€" in riga:
+                prezzo_milano_tokyo = riga.strip()
+                break
+
+        for riga in righe_milano_tokyo:
+            if "Al momento, i prezzi" in riga:
+                valutazione_milano_tokyo = riga.strip()
+                break    
         
         report = f"""
 
@@ -106,6 +127,14 @@ def get_flight_price():
 
         Valutazione Google:
         {valutazione_tokyo}
+        
+        MILANO → TOKYO
+
+        Prezzo minimo:
+        {prezzo_milano_tokyo}
+
+        Valutazione Google:
+        {valutazione_milano_tokyo}
         """
         return report
 
