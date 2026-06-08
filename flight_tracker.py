@@ -23,7 +23,7 @@ def media_rotta(nome_rotta):
 
     with open("prices.csv", "r", encoding="utf-8") as f:
 
-    for linea in f:
+        for linea in f:
 
         colonne = linea.strip().split("\t")
 
