@@ -34,8 +34,8 @@ def media_rotta(nome_rotta):
             if riga[1].strip() == nome_rotta:
                 prezzi.append(int(riga[2]))
 
-            if len(prezzi) == 0:
-             return 0
+    if len(prezzi) == 0:
+        return 0
 
     return round(sum(prezzi) / len(prezzi))
 
