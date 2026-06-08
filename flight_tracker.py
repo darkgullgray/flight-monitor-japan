@@ -140,8 +140,8 @@ def get_flight_price():
                 valutazione_milano_tokyo = riga.strip()
                 break 
 
+        
         media_roma_osaka = media_rotta("ROMA-OSAKA")
-        print("MEDIA ROMA OSAKA:", media_roma_osaka)
         media_milano_osaka = media_rotta("MILANO-OSAKA")
         media_roma_tokyo = media_rotta("ROMA-TOKYO")
         media_milano_tokyo = media_rotta("MILANO-TOKYO")
@@ -150,6 +150,22 @@ def get_flight_price():
         estrai_numero_prezzo(prezzo),
         media_roma_osaka
         )
+
+        diff_milano_osaka = differenza_percentuale(
+        estrai_numero_prezzo(prezzo_milano),
+        media_milano_osaka
+        )
+
+        diff_roma_tokyo = differenza_percentuale(
+        estrai_numero_prezzo(prezzo_tokyo),
+        media_roma_tokyo
+        )
+
+        diff_milano_tokyo = differenza_percentuale(
+        estrai_numero_prezzo(prezzo_milano_tokyo),
+        media_milano_tokyo
+        )
+
 
         
         report = f"""
