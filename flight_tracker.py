@@ -37,7 +37,7 @@ def media_rotta(nome_rotta):
             if len(prezzi) == 0:
              return 0
 
- return round(sum(prezzi) / len(prezzi))
+    return round(sum(prezzi) / len(prezzi))
 
 
 def get_flight_price():
