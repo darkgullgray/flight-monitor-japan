@@ -25,16 +25,16 @@ def media_rotta(nome_rotta):
 
         for linea in f:
 
-        colonne = linea.strip().split("\t")
+            colonne = linea.strip().split("\t")
 
-        if len(colonne) < 3:
-            continue
+            if len(colonne) < 3:
+                continue
 
-        if colonne[1] == nome_rotta:
-            prezzi.append(int(colonne[2]))
+            if colonne[1] == nome_rotta:
+                prezzi.append(int(colonne[2]))
 
-        if len(prezzi) == 0:
-         return 0
+            if len(prezzi) == 0:
+             return 0
 
     return round(sum(prezzi) / len(prezzi))
 
