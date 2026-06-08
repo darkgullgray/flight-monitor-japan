@@ -22,21 +22,22 @@ def media_rotta(nome_rotta):
     prezzi = []
 
     with open("prices.csv", "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
 
-        for linea in f:
+        next(reader, None)  # salta intestazione
 
-            colonne = linea.strip().split("\t")
+        for riga in reader:
 
-            if len(colonne) < 3:
+            if len(riga) < 3:
                 continue
 
-            if colonne[1] == nome_rotta:
-                prezzi.append(int(colonne[2]))
+            if riga[1].strip() == nome_rotta:
+                prezzi.append(int(riga[2]))
 
             if len(prezzi) == 0:
              return 0
 
-    return round(sum(prezzi) / len(prezzi))
+return round(sum(prezzi) / len(prezzi))
 
 
 def get_flight_price():
