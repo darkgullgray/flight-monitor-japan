@@ -135,6 +135,7 @@ def get_flight_price():
                 break 
 
         media_roma_osaka = media_rotta("ROMA-OSAKA")
+        print("MEDIA ROMA OSAKA:", media_roma_osaka)
         media_milano_osaka = media_rotta("MILANO-OSAKA")
         media_roma_tokyo = media_rotta("ROMA-TOKYO")
         media_milano_tokyo = media_rotta("MILANO-TOKYO")
