@@ -166,7 +166,10 @@ def get_flight_price():
         media_milano_tokyo
         )
 
-
+        print("ROMA-OSAKA =", media_roma_osaka)
+        print("MILANO-OSAKA =", media_milano_osaka)
+        print("ROMA-TOKYO =", media_roma_tokyo)
+        print("MILANO-TOKYO =", media_milano_tokyo)
         
         report = f"""
 
