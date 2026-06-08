@@ -183,31 +183,49 @@ def get_flight_price():
 
         Valutazione Google:
         {valutazione}
-        
+
         MILANO → OSAKA
 
         Prezzo minimo:
         {prezzo_milano}
 
+        Media osservata:
+        {media_milano_osaka} €
+
+        Scostamento:
+        {diff_milano_osaka} %
+
         Valutazione Google:
         {valutazione_milano}
-        
-        
+
         ROMA → TOKYO
 
         Prezzo minimo:
         {prezzo_tokyo}
 
+        Media osservata:
+        {media_roma_tokyo} €
+
+        Scostamento:
+        {diff_roma_tokyo} %
+
         Valutazione Google:
         {valutazione_tokyo}
-        
+
         MILANO → TOKYO
 
         Prezzo minimo:
         {prezzo_milano_tokyo}
 
+        Media osservata:
+        {media_milano_tokyo} €
+
+        Scostamento:
+        {diff_milano_tokyo} %
+
         Valutazione Google:
         {valutazione_milano_tokyo}
+
         """
         
     oggi = datetime.now().strftime("%Y-%m-%d")
