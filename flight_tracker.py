@@ -18,6 +18,25 @@ def estrai_numero_prezzo(testo):
     .strip()
     )
 
+def media_rotta(nome_rotta):
+    prezzi = []
+
+
+    with open("prices.csv", "r", encoding="utf-8") as f:
+        reader = csv.reader(f)
+
+        for riga in reader:
+            if len(riga) < 3:
+                continue
+
+            if riga[1] == nome_rotta:
+                prezzi.append(int(riga[2]))
+
+            if len(prezzi) == 0:
+             return 0
+
+    return round(sum(prezzi) / len(prezzi))
+
 def get_flight_price():
     
     test_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDRkNPcgcIARIDS0lYGh4SCjIwMjYtMTEtMTZqBwgBEgNLSVhyBwgBEgNGQ09AAUABQAFIAXABggELCP___________wGYAQE&hl=it&gl=IT"
@@ -110,7 +129,13 @@ def get_flight_price():
         for riga in righe_milano_tokyo:
             if "Al momento, i prezzi" in riga:
                 valutazione_milano_tokyo = riga.strip()
-                break    
+                break 
+
+        media_roma_osaka = media_rotta("ROMA-OSAKA")
+        media_milano_osaka = media_rotta("MILANO-OSAKA")
+        media_roma_tokyo = media_rotta("ROMA-TOKYO")
+        media_milano_tokyo = media_rotta("MILANO-TOKYO")
+
         
         report = f"""
 
@@ -118,6 +143,9 @@ def get_flight_price():
 
         Prezzo minimo:
         {prezzo}
+
+        Media osservata:
+        {media_roma_osaka} €
 
         Valutazione Google:
         {valutazione}
