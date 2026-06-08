@@ -39,6 +39,12 @@ def media_rotta(nome_rotta):
 
     return round(sum(prezzi) / len(prezzi))
 
+def differenza_percentuale(prezzo_attuale, media):
+    if media == 0:
+     return 0
+
+    return round(((prezzo_attuale - media) / media) * 100, 1)
+
 
 def get_flight_price():
     
@@ -140,6 +146,11 @@ def get_flight_price():
         media_roma_tokyo = media_rotta("ROMA-TOKYO")
         media_milano_tokyo = media_rotta("MILANO-TOKYO")
 
+        diff_roma_osaka = differenza_percentuale(
+        estrai_numero_prezzo(prezzo),
+        media_roma_osaka
+        )
+
         
         report = f"""
 
@@ -150,6 +161,9 @@ def get_flight_price():
 
         Media osservata:
         {media_roma_osaka} €
+
+        Scostamento:
+        {diff_roma_osaka} %
 
         Valutazione Google:
         {valutazione}
