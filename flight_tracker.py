@@ -10,13 +10,17 @@ FROM_EMAIL = os.environ["EMAIL"]
 APP_PASSWORD = os.environ["PASSWORD"]
 TO_EMAIL = "ettciu@gmail.com"
 
+
 def estrai_numero_prezzo(testo):
-    return int(
-    testo.replace("da", "")
-    .replace("€", "")
-    .replace(".", "")
-    .strip()
-    )
+    try:
+        return int(
+            testo.replace("da", "")
+            .replace("€", "")
+            .replace(".", "")
+            .strip()
+        )
+    except:
+        return 0
 
 def media_rotta(nome_rotta):
     prezzi = []
