@@ -62,30 +62,49 @@ def get_flight_price():
         page = browser.new_page()
 
         page.goto(test_url, wait_until="networkidle")
-        page.wait_for_timeout(20000)
+        page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(10000)
 
         testo = page.locator("body").inner_text()
         testo_roma = testo
+
+        if "Spiacenti. Si è verificato un problema." in testo_roma:
+            print("ERRORE GOOGLE ROMA OSAKA")
 
         print("===== ROMA OSAKA =====")
         print(testo_roma[:2000])
 
         page.goto(milano_osaka_url, wait_until="networkidle")
-        page.wait_for_timeout(20000)
+        page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(10000)
+      
 
         testo_milano = page.locator("body").inner_text()
+
+        if "Spiacenti. Si è verificato un problema." in testo_roma:
+            print("ERRORE GOOGLE MILANO OSAKA")
+        
         print("===== MILANO OSAKA =====")
         print(testo_milano[:2000])
         
         page.goto(roma_tokyo_url, wait_until="networkidle")
-        page.wait_for_timeout(20000)
+        page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(10000)
+      
 
         testo_tokyo = page.locator("body").inner_text()
+
+        if "Spiacenti. Si è verificato un problema." in testo_roma:
+            print("ERRORE GOOGLE ROMA TOKIO")
         
         page.goto(milano_tokyo_url, wait_until="networkidle")
-        page.wait_for_timeout(20000)
+        page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(10000)
 
         testo_milano_tokyo = page.locator("body").inner_text()
+
+        if "Spiacenti. Si è verificato un problema." in testo_roma:
+            print("ERRORE GOOGLE MILANO TOKIO")
         
         browser.close()
 
