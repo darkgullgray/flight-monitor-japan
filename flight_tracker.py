@@ -67,6 +67,9 @@ def get_flight_price():
         testo = page.locator("body").inner_text()
         testo_roma = testo
 
+        print("===== ROMA OSAKA =====")
+        print(testo_roma[:2000])
+
         page.goto(milano_osaka_url, wait_until="networkidle")
         page.wait_for_timeout(20000)
 
