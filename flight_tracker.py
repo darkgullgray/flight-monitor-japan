@@ -58,7 +58,12 @@ def get_flight_price():
     milano_tokyo_url = "https://www.google.com/travel/flights/search?tfs=CBwQAhoeEgoyMDI2LTExLTAyagcIARIDTVhQcgcIARIDSE5EGh4SCjIwMjYtMTEtMTZqBwgBEgNITkRyBwgBEgNNWFBAAUABQAFIAXABggELCP___________wGYAQE&tfu=EgYIABAAGAA&hl=it&gl=IT"
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--disable-blink-features=AutomationControlled"
+            ]
+        )
         page = browser.new_page()
 
         page.goto(test_url, wait_until="networkidle")
