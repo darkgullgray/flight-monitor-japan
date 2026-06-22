@@ -58,23 +58,23 @@ def get_flight_price():
         page = browser.new_page()
 
         page.goto(test_url, wait_until="networkidle")
-        page.wait_for_timeout(10000)
+        page.wait_for_timeout(20000)
 
         testo = page.locator("body").inner_text()
         testo_roma = testo
 
         page.goto(milano_osaka_url, wait_until="networkidle")
-        page.wait_for_timeout(10000)
+        page.wait_for_timeout(20000)
 
         testo_milano = page.locator("body").inner_text()
         
         page.goto(roma_tokyo_url, wait_until="networkidle")
-        page.wait_for_timeout(10000)
+        page.wait_for_timeout(20000)
 
         testo_tokyo = page.locator("body").inner_text()
         
         page.goto(milano_tokyo_url, wait_until="networkidle")
-        page.wait_for_timeout(10000)
+        page.wait_for_timeout(20000)
 
         testo_milano_tokyo = page.locator("body").inner_text()
         
