@@ -139,7 +139,10 @@ def get_flight_price():
             if "Al momento, i prezzi" in riga:
                 valutazione_milano_tokyo = riga.strip()
                 break 
-
+        print("ROMA OSAKA:", prezzo)
+        print("MILANO OSAKA:", prezzo_milano)
+        print("ROMA TOKYO:", prezzo_tokyo)
+        print("MILANO TOKYO:", prezzo_milano_tokyo)
         
         media_roma_osaka = media_rotta("ROMA-OSAKA")
         media_milano_osaka = media_rotta("MILANO-OSAKA")
